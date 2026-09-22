@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Notícias - Fatec</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- CABEÇALHO (Usa Flexbox) -->
+    <header class="cabecalho">
+        <h1>NOTÍCIAS FATEC</h1>
+        <nav class="menu">
+            <a href="#">Início</a>
+            <a href="#">Cursos</a>
+            <a href="#">Institucional</a>
+        </nav>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL (Usa CSS Grid) -->
+    <main class="grid-container">
+
+        <!-- COLUNA 1: Notícias Principais e Matérias -->
+        <div class="coluna-esquerda">
+            
+            <!-- Notícia 1 (A sua original) -->
+            <article class="noticia-principal">
+                <img src="https://vestibular2025.com/wp-content/uploads/2024/11/album-3-8-scaled.jpg" alt="Fachada da Fatec">
+                <h2>Campus Fatec Sorocaba</h2>
+                <p>Faculdade se torna numero um em invasões, estudante afirma "Querem estudar todos nós", o diretor afirma "Vocês são sortudos".</p>
+            </article>
+
+            <!-- Notícia 2 -->
+            <article class="noticia-principal">
+                <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80" alt="Maratona de Programação">
+                <h2>Maratona de Programação de ADS</h2>
+                <p>Alunos do curso de Análise e Desenvolvimento de Sistemas preparam robôs e algoritmos para a competição regional de software deste semestre.</p>
+            </article>
+
+            <!-- Notícia 3 -->
+            <article class="noticia-principal">
+                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80" alt="Projetos integradores">
+                <h2>Projetos Integradores e Inovação</h2>
+                <p>Estudantes apresentam soluções tecnológicas voltadas para empresas locais de Sorocaba e região durante a feira de tecnologia.</p>
+            </article>
+
+        </div>
+
+        <!-- COLUNA 2: Barra Lateral (Usa Flexbox em Coluna) -->
+        <aside class="barra-lateral">
+            <h3>Avisos Importantes</h3>
+
+            <div class="card-pequeno">
+                <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=400&q=80" alt="Calendário">
+                <h4>Calendário Acadêmico</h4>
+                <p>Confira os prazos de rematrícula, trancamento e início das aulas do próximo semestre.</p>
+            </div>
+
+            <div class="card-pequeno">
+                <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=400&q=80" alt="Apresentação de TCC">
+                <h4>Projetos e Eventos</h4>
+                <p>Apresentação dos trabalhos de conclusão de curso (TCC) abertas ao público nesta semana.</p>
+            </div>
+
+            <div class="card-pequeno">
+                <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=400&q=80" alt="Biblioteca">
+                <h4>Biblioteca e Acervo</h4>
+                <p>Novos livros didáticos e licenças de software acadêmico já estão disponíveis para retirada.</p>
+            </div>
+
+            <div class="card-pequeno">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=400&q=80" alt="Estágios e Oportunidades">
+                <h4>Mural de Estágios</h4>
+                <p>Empresas da região abrem mais de 30 vagas exclusivas para estudantes da Fatec.</p>
+            </div>
+        </aside>
+
+    </main>
+
+    <!-- RODAPÉ (Usa Flexbox) -->
+    <footer class="rodape">
+        <p>&copy; 2026 - Fatec Sorocaba</p>
+    </footer>
+
+</body>
+</html>

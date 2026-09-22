@@ -1,0 +1,104 @@
+/* RESET E ESTILO GERAL */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* CABEÇALHO (FLEXBOX) */
+.cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #222;
+    color: white;
+    padding: 15px 30px;
+}
+
+.menu {
+    display: flex;
+    gap: 15px;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+}
+
+/* ESTRUTURA PRINCIPAL (CSS GRID) */
+.grid-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 0 10px;
+}
+
+/* COLUNA DA ESQUERDA */
+.coluna-esquerda {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.noticia-principal {
+    background: white;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.noticia-principal img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.noticia-principal h2 {
+    margin-bottom: 8px;
+    color: #b30000;
+}
+
+.barra-lateral {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.card-pequeno {
+    background: white;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.card-pequeno img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.card-pequeno h4 {
+    margin-bottom: 5px;
+}
+
+/* RODAPÉ (FLEXBOX) */
+.rodape {
+    display: flex;
+    justify-content: center;
+    background-color: #222;
+    color: white;
+    padding: 15px;
+    margin-top: 20px;
+}
