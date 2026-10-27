@@ -63,9 +63,9 @@
         <p>Escolha uma opção para jogar contra o computador.</p>
 
         <div class="botoes">
-            <button onclick="jogar('pedra')">✊ Pedra</button>
-            <button onclick="jogar('papel')">✋ Papel</button>
-            <button onclick="jogar('tesoura')">✌️ Tesoura</button>
+            <button type="button" id="pedra">✊ Pedra</button>
+            <button type="button" id="papel">✋ Papel</button>
+            <button type="button" id="tesoura">✌️ Tesoura</button>
         </div>
 
         <div id="resultado">Faça sua escolha!</div>
@@ -112,11 +112,22 @@
                 mensagem += "O computador ganhou!";
             }
 
-            document.getElementById("resultado").innerText = mensagem;
-            document.getElementById("vitorias").innerText = vitorias;
-            document.getElementById("derrotas").innerText = derrotas;
-            document.getElementById("empates").innerText = empates;
+            document.getElementById("resultado").textContent = mensagem;
+            document.getElementById("vitorias").textContent = vitorias;
+            document.getElementById("derrotas").textContent = derrotas;
+            document.getElementById("empates").textContent = empates;
         }
+        document.getElementById("pedra").addEventListener("click", function() {
+            jogar("pedra");
+        });
+
+        document.getElementById("papel").addEventListener("click", function() {
+            jogar("papel");
+        });
+
+        document.getElementById("tesoura").addEventListener("click", function() {
+            jogar("tesoura");
+        });
     </script>
 </body>
 </html>
