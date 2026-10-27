@@ -2,15 +2,88 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Atividade 7</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade 7 - Pedra, Papel ou Tesoura</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .jogo {
+            background: white;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px #00000015;
+        }
+        h1 { font-size: 26px; }
+        p { color: #555; }
+        .botoes {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 25px 0;
+        }
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 14px 12px;
+            font-size: 16px;
+            cursor: pointer;
+            flex: 1;
+        }
+        button:hover { background: #1d4ed8; }
+        #resultado { min-height: 65px; font-weight: bold; }
+        .placar {
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+            display: flex;
+            justify-content: space-around;
+            gap: 8px;
+        }
+        .placar div { flex: 1; }
+        .placar strong { display: block; font-size: 26px; margin-top: 8px; }
+        @media (max-width: 400px) {
+            .jogo { margin: 15px auto; padding: 18px; }
+            h1 { font-size: 22px; }
+            .botoes { flex-direction: column; }
+        }
+    </style>
 </head>
 <body>
-    <h1>Pedra, Papel ou Tesoura</h1>
-    <button onclick="jogar()">Jogar</button>
+    <div class="jogo">
+        <h1>Pedra, Papel ou Tesoura</h1>
+        <p>Escolha uma opção para jogar contra o computador.</p>
+
+        <div class="botoes">
+            <button onclick="jogar('pedra')">✊ Pedra</button>
+            <button onclick="jogar('papel')">✋ Papel</button>
+            <button onclick="jogar('tesoura')">✌️ Tesoura</button>
+        </div>
+
+        <div id="resultado">Faça sua escolha!</div>
+
+        <h2>Placar</h2>
+        <div class="placar">
+            <div>Você<strong id="vitorias">0</strong></div>
+            <div>Empates<strong id="empates">0</strong></div>
+            <div>Computador<strong id="derrotas">0</strong></div>
+        </div>
+    </div>
 
     <script>
-        function jogar() {
-            let jogador = prompt("Escolha: pedra, papel ou tesoura").toLowerCase();
+        let vitorias = 0;
+        let derrotas = 0;
+        let empates = 0;
+
+        function jogar(jogador) {
             let numero = Math.floor(Math.random() * 3);
             let computador;
 
@@ -22,19 +95,27 @@
                 computador = "tesoura";
             }
 
-            if (jogador != "pedra" && jogador != "papel" && jogador != "tesoura") {
-                alert("Escolha inválida!");
-            } else if (jogador == computador) {
-                alert("Computador escolheu " + computador + ". Empate!");
+            let mensagem = "Você escolheu " + jogador + " e o computador escolheu " + computador + ". ";
+
+            if (jogador == computador) {
+                empates++;
+                mensagem += "Empate!";
             } else if (
                 (jogador == "pedra" && computador == "tesoura") ||
                 (jogador == "papel" && computador == "pedra") ||
                 (jogador == "tesoura" && computador == "papel")
             ) {
-                alert("Computador escolheu " + computador + ". Você ganhou!");
+                vitorias++;
+                mensagem += "Você ganhou!";
             } else {
-                alert("Computador escolheu " + computador + ". Você perdeu!");
+                derrotas++;
+                mensagem += "O computador ganhou!";
             }
+
+            document.getElementById("resultado").innerText = mensagem;
+            document.getElementById("vitorias").innerText = vitorias;
+            document.getElementById("derrotas").innerText = derrotas;
+            document.getElementById("empates").innerText = empates;
         }
     </script>
 </body>
