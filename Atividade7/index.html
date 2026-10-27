@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atividade 7 - Pedra, Papel ou Tesoura</title>
+  <style>
+    :root { color-scheme: dark; font-family: Arial, Helvetica, sans-serif; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: linear-gradient(145deg,#10152d,#212d50); color: #f7f9ff; display: grid; place-items: center; padding: 24px; }
+    main { width: min(100%, 650px); background: #ffffff0d; border: 1px solid #ffffff28; border-radius: 24px; padding: clamp(22px,5vw,42px); text-align: center; box-shadow: 0 15px 50px #0005; }
+    .tag { color: #a4bdff; font-weight: 700; letter-spacing: .1em; font-size: .8rem; text-transform: uppercase; }
+    h1 { margin: 14px 0 8px; font-size: clamp(1.8rem,5vw,2.6rem); }
+    p { line-height: 1.5; color: #c9d2e6; }
+    .placar { display: flex; justify-content: center; gap: 12px; margin: 30px 0; flex-wrap: wrap; }
+    .placar div { flex: 1; min-width: 100px; background: #111a35; border-radius: 14px; padding: 14px; }
+    .placar strong { display: block; font-size: 2rem; margin-top: 5px; }
+    .opcoes { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 22px 0; }
+    .opcoes button { cursor: pointer; width: 145px; max-width: 100%; padding: 17px 10px; font-size: 1.08rem; background: #334b87; color: white; border: 2px solid transparent; border-radius: 14px; transition: transform .15s, background .15s; }
+    .opcoes button:hover, .opcoes button:focus-visible { background: #4566b8; transform: translateY(-3px); outline: none; border-color: #a1bbff; }
+    .emoji { display: block; font-size: 2.5rem; margin-bottom: 7px; }
+    #resultado { background: #111a35; border-radius: 16px; padding: 20px; min-height: 132px; margin-top: 20px; }
+    #resultado h2 { margin: 0 0 8px; }
+    #resultado p { margin: 6px 0; }
+    #reiniciar { margin-top: 22px; border: 1px solid #8399c6; background: transparent; color: white; border-radius: 9px; padding: 11px 20px; cursor: pointer; }
+    #reiniciar:hover { background: #ffffff1a; }
+    footer { font-size: .8rem; color: #aebcdb; margin-top: 25px; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="tag">Desenvolvimento Web • Atividade 7</div>
+    <h1>Pedra, Papel ou Tesoura</h1>
+    <p>Escolha uma opção para jogar contra o computador. Boa sorte!</p>
+
+    <section class="placar" aria-label="Placar do jogo">
+      <div>Você<strong id="pontos-jogador">0</strong></div>
+      <div>Empates<strong id="pontos-empates">0</strong></div>
+      <div>Computador<strong id="pontos-computador">0</strong></div>
+    </section>
+
+    <h2>Faça sua escolha:</h2>
+    <div class="opcoes">
+      <button type="button" data-escolha="pedra"><span class="emoji">✊</span>Pedra</button>
+      <button type="button" data-escolha="papel"><span class="emoji">✋</span>Papel</button>
+      <button type="button" data-escolha="tesoura"><span class="emoji">✌️</span>Tesoura</button>
+    </div>
+
+    <section id="resultado" aria-live="polite">
+      <h2>Vamos jogar?</h2>
+      <p>Selecione pedra, papel ou tesoura acima.</p>
+    </section>
+    <button type="button" id="reiniciar">Zerar placar</button>
+    <footer>Exercício de JavaScript — escolha aleatória com Math.random()</footer>
+  </main>
+
+  <script>
+    const opcoes = ["pedra", "papel", "tesoura"];
+    const simbolos = { pedra: "✊", papel: "✋", tesoura: "✌️" };
+    const mensagens = {
+      "pedra-tesoura": "Pedra quebra tesoura.",
+      "tesoura-papel": "Tesoura corta papel.",
+      "papel-pedra": "Papel cobre a pedra."
+    };
+
+    let vitorias = 0;
+    let derrotas = 0;
+    let empates = 0;
+
+    function jogar(escolhaJogador) {
+      // Math.random() produz um número de 0 (inclusive) a 1 (exclusive).
+      // Math.floor() converte esse valor em um índice: 0, 1 ou 2.
+      const indice = Math.floor(Math.random() * 3);
+      const escolhaComputador = opcoes[indice];
+
+      let titulo;
+      let explicacao;
+
+      if (escolhaJogador === escolhaComputador) {
+        empates++;
+        titulo = "Empate!";
+        explicacao = "Os dois escolheram a mesma opção.";
+      } else if (mensagens[escolhaJogador + "-" + escolhaComputador]) {
+        vitorias++;
+        titulo = "Você venceu! 🎉";
+        explicacao = mensagens[escolhaJogador + "-" + escolhaComputador];
+      } else {
+        derrotas++;
+        titulo = "O computador venceu!";
+        explicacao = mensagens[escolhaComputador + "-" + escolhaJogador];
+      }
+
+      document.getElementById("pontos-jogador").textContent = vitorias;
+      document.getElementById("pontos-computador").textContent = derrotas;
+      document.getElementById("pontos-empates").textContent = empates;
+      document.getElementById("resultado").innerHTML =
+        "<h2>" + titulo + "</h2>" +
+        "<p>Você: " + simbolos[escolhaJogador] + " " + escolhaJogador +
+        " | Computador: " + simbolos[escolhaComputador] + " " + escolhaComputador + "</p>" +
+        "<p>" + explicacao + "</p>";
+    }
+
+    document.querySelectorAll("[data-escolha]").forEach(function(botao) {
+      botao.addEventListener("click", function() {
+        jogar(botao.dataset.escolha);
+      });
+    });
+
+    document.getElementById("reiniciar").addEventListener("click", function() {
+      vitorias = 0;
+      derrotas = 0;
+      empates = 0;
+      document.getElementById("pontos-jogador").textContent = "0";
+      document.getElementById("pontos-computador").textContent = "0";
+      document.getElementById("pontos-empates").textContent = "0";
+      document.getElementById("resultado").innerHTML =
+        "<h2>Placar zerado!</h2><p>Escolha uma opção para começar novamente.</p>";
+    });
+  </script>
+</body>
+</html>
