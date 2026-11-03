@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade 8 - Pesquisa sobre o Filme</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f4f9;
+            margin: 0;
+            padding: 20px;
+            color: #222;
+        }
+
+        .caixa {
+            background-color: white;
+            max-width: 650px;
+            margin: 25px auto;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px #00000015;
+        }
+
+        h1 { text-align: center; margin-bottom: 10px; }
+        h2 { margin-top: 0; }
+        .descricao { text-align: center; color: #555; }
+        .contador { text-align: center; font-weight: bold; color: #2563eb; margin: 25px 0; }
+
+        .campos { display: flex; gap: 12px; }
+        .campo { flex: 1; min-width: 0; }
+        label { display: block; margin-bottom: 7px; font-weight: bold; }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #bbb;
+            border-radius: 7px;
+            background: white;
+        }
+
+        .botoes { display: flex; gap: 10px; margin-top: 22px; }
+        button {
+            flex: 1;
+            padding: 13px;
+            border: none;
+            border-radius: 7px;
+            font-size: 15px;
+            background: #2563eb;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover { background: #1d4ed8; }
+        button:disabled { background: #aab7d1; cursor: default; }
+        .secundario { background: #596579; }
+        .secundario:hover { background: #444d5c; }
+        .aviso { color: #555; text-align: center; min-height: 20px; }
+        #resultados { display: none; }
+        #resultados p { border-bottom: 1px solid #eee; padding-bottom: 10px; }
+
+        @media (max-width: 550px) {
+            .caixa { margin: 10px auto; padding: 20px; }
+            h1 { font-size: 24px; }
+            .campos, .botoes { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="caixa">
+        <h1>Pesquisa sobre o Filme</h1>
+        <p class="descricao">Atividade 8 - JavaScript</p>
+        <p class="descricao">Cadastre as respostas das 45 pessoas que assistiram ao filme.</p>
+
+        <p class="contador" id="contador">Respostas: 0 de 45</p>
+
+        <div class="campos">
+            <div class="campo">
+                <label for="idade">Idade</label>
+                <input type="number" id="idade" min="1" max="120" placeholder="Ex.: 20">
+            </div>
+            <div class="campo">
+                <label for="sexo">Sexo</label>
+                <select id="sexo">
+                    <option value="">Selecione</option>
+                    <option value="feminino">Feminino</option>
+                    <option value="masculino">Masculino</option>
+                    <option value="outros">Outros</option>
+                </select>
+            </div>
+            <div class="campo">
+                <label for="opiniao">Opinião</label>
+                <select id="opiniao">
+                    <option value="">Selecione</option>
+                    <option value="4">4 - Ótimo</option>
+                    <option value="3">3 - Bom</option>
+                    <option value="2">2 - Regular</option>
+                    <option value="1">1 - Péssimo</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="botoes">
+            <button id="adicionar" onclick="adicionarResposta()">Adicionar resposta</button>
+            <button class="secundario" onclick="mostrarResultados()">Ver resultados</button>
+        </div>
+        <p class="aviso" id="aviso"></p>
+    </div>
+
+    <div class="caixa" id="resultados">
+        <h2>Resultado da Pesquisa</h2>
+        <p id="situacao"></p>
+        <p id="media"></p>
+        <p id="maisVelha"></p>
+        <p id="maisNova"></p>
+        <p id="pessimo"></p>
+        <p id="percentual"></p>
+        <p id="sexos"></p>
+        <button class="secundario" onclick="reiniciar()">Reiniciar pesquisa</button>
+    </div>
+
+    <script>
+        let quantidade = 0;
+        let somaIdades = 0;
+        let maiorIdade = 0;
+        let menorIdade = 0;
+        let totalPessimo = 0;
+        let totalOtimoBom = 0;
+        let mulheres = 0;
+        let homens = 0;
+        let outros = 0;
+
+        function adicionarResposta() {
+            let idade = Number(document.getElementById("idade").value);
+            let sexo = document.getElementById("sexo").value;
+            let opiniao = Number(document.getElementById("opiniao").value);
+
+            if (quantidade == 45) {
+                alert("As 45 respostas já foram cadastradas!");
+                return;
+            }
+
+            if (!Number.isInteger(idade) || idade < 1 || idade > 120 || sexo == "" || opiniao < 1 || opiniao > 4) {
+                alert("Preencha a idade, o sexo e a opinião corretamente.");
+                return;
+            }
+
+            quantidade++;
+            somaIdades += idade;
+
+            if (idade > maiorIdade) {
+                maiorIdade = idade;
+            }
+            if (quantidade == 1 || idade < menorIdade) {
+                menorIdade = idade;
+            }
+
+            if (opiniao == 1) {
+                totalPessimo++;
+            }
+            if (opiniao == 4 || opiniao == 3) {
+                totalOtimoBom++;
+            }
+
+            if (sexo == "feminino") {
+                mulheres++;
+            } else if (sexo == "masculino") {
+                homens++;
+            } else {
+                outros++;
+            }
+
+            document.getElementById("contador").textContent = "Respostas: " + quantidade + " de 45";
+            document.getElementById("aviso").textContent = "Resposta registrada!";
+            document.getElementById("idade").value = "";
+            document.getElementById("sexo").value = "";
+            document.getElementById("opiniao").value = "";
+
+            if (quantidade == 45) {
+                document.getElementById("adicionar").disabled = true;
+                mostrarResultados();
+            } else if (document.getElementById("resultados").style.display == "block") {
+                mostrarResultados();
+            }
+        }
+
+        function mostrarResultados() {
+            if (quantidade == 0) {
+                alert("Cadastre pelo menos uma resposta primeiro.");
+                return;
+            }
+
+            let media = somaIdades / quantidade;
+            let porcentagem = totalOtimoBom * 100 / quantidade;
+
+            document.getElementById("situacao").textContent = quantidade == 45 ?
+                "Pesquisa concluída: 45 pessoas." : "Resultado parcial: " + quantidade + " de 45 pessoas.";
+            document.getElementById("media").textContent = "Média das idades: " + media.toFixed(2) + " anos";
+            document.getElementById("maisVelha").textContent = "Pessoa mais velha: " + maiorIdade + " anos";
+            document.getElementById("maisNova").textContent = "Pessoa mais nova: " + menorIdade + " anos";
+            document.getElementById("pessimo").textContent = "Respostas péssimo: " + totalPessimo;
+            document.getElementById("percentual").textContent = "Porcentagem de ótimo e bom: " + porcentagem.toFixed(2) + "%";
+            document.getElementById("sexos").textContent = "Mulheres: " + mulheres + " | Homens: " + homens + " | Outros: " + outros;
+            document.getElementById("resultados").style.display = "block";
+        }
+
+        function reiniciar() {
+            quantidade = 0;
+            somaIdades = 0;
+            maiorIdade = 0;
+            menorIdade = 0;
+            totalPessimo = 0;
+            totalOtimoBom = 0;
+            mulheres = 0;
+            homens = 0;
+            outros = 0;
+            document.getElementById("contador").textContent = "Respostas: 0 de 45";
+            document.getElementById("aviso").textContent = "";
+            document.getElementById("adicionar").disabled = false;
+            document.getElementById("resultados").style.display = "none";
+        }
+    </script>
+</body>
+</html>
